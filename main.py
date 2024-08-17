@@ -38,7 +38,8 @@ async def reservasinternacionales_command(update: Update,context: ContextTypes.D
         fecha = data[len(data)-1]['d']
         await update.message.reply_text(f"Reservas Internacionales: {valor} Millones USD en la fecha: {fecha}")
     else:
-        await update.message.reply_text(f"Error al obtener datos. Código de estado: {response.status_code}")
+        await update.message.reply_text(f"Error al obtener datos. Código de estado: {response.status_code}, Mensaje: {response.text}")
+
 
 
 async def dolar_command(update: Update,context: ContextTypes.DEFAULT_TYPE):

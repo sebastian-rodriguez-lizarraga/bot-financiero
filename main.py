@@ -1,5 +1,3 @@
-from typing import Final
-import openai
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters, ContextTypes, Application
 import requests
@@ -62,20 +60,6 @@ async def dolar_command(update: Update,context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"{message}")
 
 
-def generate_openai_response(prompt: str) -> str:
-    # Utiliza la API de OpenAI para generar una respuesta basada en el prompt
-        try:
-            completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return completion.choices[0].message['content']
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            return ""  # Return
-    # Obtiene la respuesta generada por OpenAI
 
 def handle_response(text:str) -> str:
     text_lower = text.lower()
@@ -90,9 +74,6 @@ def handle_response(text:str) -> str:
     # Si no coincide con ningún patrón específico, utiliza OpenAI GPT-3 para generar una respuesta
     elif 'te quiero' in text_lower:
         return 'Yo te quiero mas Mambru <3 '
-    response = generate_openai_response(text)
-    print('OpenAI:', response)
-    return response
 
 async def handle_message(update: Update,context: ContextTypes.DEFAULT_TYPE):
     message_type = update.message.chat.type #private or group
